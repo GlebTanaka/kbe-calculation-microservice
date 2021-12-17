@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,6 +22,7 @@ import de.htwberlin.f4.calculationmicroservice.services.CalculateMehrwertsteuerS
  */
 @Validated
 @RestController
+@RequestMapping(path = "api/v1/calculator")
 public class CalculateMehrwertsteuerController {
 
     @Autowired
