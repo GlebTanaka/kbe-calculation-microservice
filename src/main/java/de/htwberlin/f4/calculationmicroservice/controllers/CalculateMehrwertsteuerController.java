@@ -1,8 +1,8 @@
 package de.htwberlin.f4.calculationmicroservice.controllers;
 
 import javax.validation.ConstraintViolationException;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,7 +35,7 @@ public class CalculateMehrwertsteuerController {
      * @return ResponseEntity<Double> enthält die errechnete Mehrwertsteuer
      */
     @GetMapping("/calculatemehrwertsteuer")
-    public ResponseEntity<Double> calculateMehrwertSteuer(@Min(0) @NotNull @RequestParam double preis) {
+    public ResponseEntity<Double> calculateMehrwertSteuer(@Positive @NotNull @RequestParam double preis) {
         return ResponseEntity.ok(calculator.calculateMehrwertSteuer(preis));
     }
 
