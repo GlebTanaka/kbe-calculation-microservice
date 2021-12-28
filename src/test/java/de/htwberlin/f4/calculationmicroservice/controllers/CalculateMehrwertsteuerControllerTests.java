@@ -46,4 +46,24 @@ public class CalculateMehrwertsteuerControllerTests {
         this.mockMvc.perform(get("/api/v1/calculator/calculatemehrwertsteuer").param("preis", s).contentType(MediaType.APPLICATION_JSON))
             .andExpect(status().isBadRequest()).andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_PLAIN)).andExpect(content().string(containsString("NumberFormatException: ")));
     }
+
+    @Test
+    public void calculateMehrwertSteuerNullParameter() throws Exception{
+        String s = null;
+        this.mockMvc.perform(get("/api/v1/calculator/calculatemehrwertsteuer").param("preis", s).contentType(MediaType.APPLICATION_JSON))
+            .andExpect(status().isBadRequest()).andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_PLAIN)).andExpect(content().string(containsString("MissingServletRequestParameterException: ")));
+    }
+
+    @Test
+    public void calculateMehrwertSteuerWrongParameter() throws Exception{
+        String s = "10.0";
+        this.mockMvc.perform(get("/api/v1/calculator/calculatemehrwertsteuer").param("test", s).contentType(MediaType.APPLICATION_JSON))
+            .andExpect(status().isBadRequest()).andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_PLAIN)).andExpect(content().string(containsString("MissingServletRequestParameterException: ")));
+    }
+
+    @Test
+    public void calculateMehrwertSteuerMissingParameter() throws Exception{
+        this.mockMvc.perform(get("/api/v1/calculator/calculatemehrwertsteuer").contentType(MediaType.APPLICATION_JSON))
+            .andExpect(status().isBadRequest()).andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_PLAIN)).andExpect(content().string(containsString("MissingServletRequestParameterException: ")));
+    }
 }

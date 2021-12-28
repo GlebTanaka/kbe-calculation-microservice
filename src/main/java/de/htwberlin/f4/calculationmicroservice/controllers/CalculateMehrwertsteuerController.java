@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -59,6 +60,17 @@ public class CalculateMehrwertsteuerController {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     private ResponseEntity<String> handleNumberFormatException(NumberFormatException e) {
         return new ResponseEntity<>("NumberFormatException: " + e.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+     /**
+     * händelt MissingServletRequestParameterException
+     * @param e MissingServletRequestParameterException
+     * @return ResponseEntity mit fehlermeldung
+     */
+    @ExceptionHandler(MissingServletRequestParameterException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    private ResponseEntity<String> handleMissingServletRequestParameterException(MissingServletRequestParameterException e) {
+        return new ResponseEntity<>("MissingServletRequestParameterException: " + e.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
 }
