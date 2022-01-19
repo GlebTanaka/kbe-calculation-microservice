@@ -1,19 +1,14 @@
 package de.htwberlin.f4.calculationmicroservice.controllers;
 
-import javax.validation.ConstraintViolationException;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.MissingServletRequestParameterException;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import de.htwberlin.f4.calculationmicroservice.services.CalculateMehrwertsteuerService;
@@ -29,48 +24,8 @@ public class CalculateMehrwertsteuerController {
     @Autowired
     private CalculateMehrwertsteuerService calculator;
 
-    /**
-     * liefert die Mehrwertsteuer vom Produkt
-     * 
-     * @param preis vom Produkt
-     * @return ResponseEntity<Double> enthält die errechnete Mehrwertsteuer
-     */
     @GetMapping("/calculatemehrwertsteuer")
     public ResponseEntity<Double> calculateMehrwertSteuer(@Positive @NotNull @RequestParam double preis) {
         return ResponseEntity.ok(calculator.calculateMehrwertSteuer(preis));
     }
-
-    /**
-     * händelt ConstraintViolationException
-     * @param e ConstraintViolationException
-     * @return ResponseEntity mit Validierungsfehlermeldung
-     */
-    @ExceptionHandler(ConstraintViolationException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    private ResponseEntity<String> handleConstraintViolationException(ConstraintViolationException e) {
-        return new ResponseEntity<>("Validation Error: " + e.getMessage(), HttpStatus.BAD_REQUEST);
-    }
-
-    /**
-     * händelt NumberFormatException
-     * @param e NumberFormatException
-     * @return ResponseEntity mit fehlermeldung
-     */
-    @ExceptionHandler(NumberFormatException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    private ResponseEntity<String> handleNumberFormatException(NumberFormatException e) {
-        return new ResponseEntity<>("NumberFormatException: " + e.getMessage(), HttpStatus.BAD_REQUEST);
-    }
-
-     /**
-     * händelt MissingServletRequestParameterException
-     * @param e MissingServletRequestParameterException
-     * @return ResponseEntity mit fehlermeldung
-     */
-    @ExceptionHandler(MissingServletRequestParameterException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    private ResponseEntity<String> handleMissingServletRequestParameterException(MissingServletRequestParameterException e) {
-        return new ResponseEntity<>("MissingServletRequestParameterException: " + e.getMessage(), HttpStatus.BAD_REQUEST);
-    }
-
 }
