@@ -3,6 +3,8 @@ package de.htwberlin.f4.calculationmicroservice.controllers;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -25,7 +27,14 @@ public class CalculateMehrwertsteuerController {
     private CalculateMehrwertsteuerService calculator;
 
     @GetMapping("/calculatemehrwertsteuer")
-    public ResponseEntity<Double> calculateMehrwertSteuer(@Positive @NotNull @RequestParam double preis) {
+    @ApiOperation(value = "Calculate Mehrwersteuer",
+            notes = "Provide a price greater than zero to calculate the Mehrwertstuer of this price",
+            response = Double.class)
+    public ResponseEntity<Double> calculateMehrwertSteuer(
+            @ApiParam(value = "price value needs to be greater than 0", required = true, example = "100")
+            @Positive
+            @NotNull
+            @RequestParam double preis) {
         return ResponseEntity.ok(calculator.calculateMehrwertSteuer(preis));
     }
 }
