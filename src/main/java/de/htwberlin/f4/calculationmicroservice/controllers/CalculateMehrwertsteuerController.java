@@ -23,8 +23,12 @@ import de.htwberlin.f4.calculationmicroservice.services.CalculateMehrwertsteuerS
 @RequestMapping(path = "api/v1/calculator")
 public class CalculateMehrwertsteuerController {
 
+    private final CalculateMehrwertsteuerService calculator;
+
     @Autowired
-    private CalculateMehrwertsteuerService calculator;
+    public CalculateMehrwertsteuerController(CalculateMehrwertsteuerService calculator) {
+        this.calculator = calculator;
+    }
 
     @GetMapping("/calculatemehrwertsteuer")
     @ApiOperation(value = "Calculate Mehrwersteuer",

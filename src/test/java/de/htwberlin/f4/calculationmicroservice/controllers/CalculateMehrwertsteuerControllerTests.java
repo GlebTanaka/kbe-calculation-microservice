@@ -28,42 +28,42 @@ public class CalculateMehrwertsteuerControllerTests {
     private CalculateMehrwertsteuerService service;
 
     @Test
-    public void calculateMehrwertSteuerTest() throws Exception{
+    public void calculateMehrwertSteuerTest() throws Exception {
         when(service.calculateMehrwertSteuer(10.0)).thenReturn(1.9);
         this.mockMvc.perform(get("/api/v1/calculator/calculatemehrwertsteuer").param("preis", "10.0").contentType(MediaType.APPLICATION_JSON))
-            .andExpect(status().isOk()).andExpect(content().contentType(MediaType.APPLICATION_JSON)).andExpect(content().string("1.9"));
+                .andExpect(status().isOk()).andExpect(content().contentType(MediaType.APPLICATION_JSON)).andExpect(content().string("1.9"));
     }
 
     @Test
-    public void calculateMehrwertSteuerInvalidValidationTest() throws Exception{
+    public void calculateMehrwertSteuerInvalidValidationTest() throws Exception {
         this.mockMvc.perform(get("/api/v1/calculator/calculatemehrwertsteuer").param("preis", "-1").contentType(MediaType.APPLICATION_JSON))
-            .andExpect(status().isBadRequest()).andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_PLAIN)).andExpect(content().string(containsString("Validation Error: ")));
+                .andExpect(status().isBadRequest()).andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_PLAIN)).andExpect(content().string(containsString("Validation Error: ")));
     }
 
     @Test
-    public void calculateMehrwertSteuerInvalidFormatTest() throws Exception{
+    public void calculateMehrwertSteuerInvalidFormatTest() throws Exception {
         String s = "test";
         this.mockMvc.perform(get("/api/v1/calculator/calculatemehrwertsteuer").param("preis", s).contentType(MediaType.APPLICATION_JSON))
-            .andExpect(status().isBadRequest()).andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_PLAIN)).andExpect(content().string(containsString("NumberFormatException: ")));
+                .andExpect(status().isBadRequest()).andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_PLAIN)).andExpect(content().string(containsString("NumberFormatException: ")));
     }
 
     @Test
-    public void calculateMehrwertSteuerNullParameter() throws Exception{
+    public void calculateMehrwertSteuerNullParameter() throws Exception {
         String s = null;
         this.mockMvc.perform(get("/api/v1/calculator/calculatemehrwertsteuer").param("preis", s).contentType(MediaType.APPLICATION_JSON))
-            .andExpect(status().isBadRequest()).andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_PLAIN)).andExpect(content().string(containsString("MissingServletRequestParameterException: ")));
+                .andExpect(status().isBadRequest()).andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_PLAIN)).andExpect(content().string(containsString("MissingServletRequestParameterException: ")));
     }
 
     @Test
-    public void calculateMehrwertSteuerWrongParameter() throws Exception{
+    public void calculateMehrwertSteuerWrongParameter() throws Exception {
         String s = "10.0";
         this.mockMvc.perform(get("/api/v1/calculator/calculatemehrwertsteuer").param("test", s).contentType(MediaType.APPLICATION_JSON))
-            .andExpect(status().isBadRequest()).andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_PLAIN)).andExpect(content().string(containsString("MissingServletRequestParameterException: ")));
+                .andExpect(status().isBadRequest()).andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_PLAIN)).andExpect(content().string(containsString("MissingServletRequestParameterException: ")));
     }
 
     @Test
-    public void calculateMehrwertSteuerMissingParameter() throws Exception{
+    public void calculateMehrwertSteuerMissingParameter() throws Exception {
         this.mockMvc.perform(get("/api/v1/calculator/calculatemehrwertsteuer").contentType(MediaType.APPLICATION_JSON))
-            .andExpect(status().isBadRequest()).andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_PLAIN)).andExpect(content().string(containsString("MissingServletRequestParameterException: ")));
+                .andExpect(status().isBadRequest()).andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_PLAIN)).andExpect(content().string(containsString("MissingServletRequestParameterException: ")));
     }
 }

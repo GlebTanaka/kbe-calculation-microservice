@@ -35,7 +35,6 @@ public class SpringFoxConfig {
                 new springfox.documentation.service.Contact("Gleb & Linda", "https://github.com/GlebTanaka/kbe-calculation-microservice", "gleb5655@gmail.com"),
                 "API License",
                 "https://github.com/GlebTanaka/kbe-calculation-microservice",
-                Collections.emptyList()
-        );
+                Collections.emptyList());
     }
 }

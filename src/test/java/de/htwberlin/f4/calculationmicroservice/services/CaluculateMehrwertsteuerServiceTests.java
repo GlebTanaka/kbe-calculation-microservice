@@ -13,33 +13,33 @@ public class CaluculateMehrwertsteuerServiceTests {
     private CalculateMehrwertsteuerService service;
 
     @Test
-    public void calculateMehrwertSteuerGutTest(){
+    public void calculateMehrwertSteuerGutTest() {
         double price = 10.0;
         double s = service.calculateMehrwertSteuer(price);
         assertEquals(1.9, s);
     }
 
     @Test
-    public void calculateMehrwertSteuerMaxTest(){
-        double price = 1.7*Math.pow(10, 308);
+    public void calculateMehrwertSteuerMaxTest() {
+        double price = 1.7 * Math.pow(10, 308);
         double s = service.calculateMehrwertSteuer(price);
-        assertEquals(0.323*Math.pow(10, 308), s);
+        assertEquals(0.323 * Math.pow(10, 308), s);
     }
 
     @Test
-    public void calculateMehrwertSteuerNegativeTest(){
+    public void calculateMehrwertSteuerNegativeTest() {
         double price = -10;
         assertThrows(IllegalArgumentException.class, () -> service.calculateMehrwertSteuer(price), "Preis muss größer als 0 sein");
     }
 
     @Test
-    public void calculateMehrwertSteuerZeroTest(){
+    public void calculateMehrwertSteuerZeroTest() {
         double price = 0;
         assertThrows(IllegalArgumentException.class, () -> service.calculateMehrwertSteuer(price), "Preis muss größer als 0 sein");
     }
 
     @Test
-    public void calculateMehrwertSteuerMinTest(){
+    public void calculateMehrwertSteuerMinTest() {
         double price = Double.MIN_VALUE;
         double s = service.calculateMehrwertSteuer(price);
         assertEquals(0, s);
