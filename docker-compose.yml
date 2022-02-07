@@ -1,0 +1,10 @@
+version: "3.9"
+
+### API Spring Boot ###
+services:
+  calculator_api:
+    build:
+      dockerfile: Dockerfile
+      context: .
+    ports:
+      - "8081:3032"
