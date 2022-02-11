@@ -11,7 +11,7 @@ COPY src ./
 COPY pom.xml ../
 
 # This command is also possible: ./mvnw clean package -DskipTests
-RUN mvn -f /workspace/app/pom.xml clean package -Dmaven.test.skip=true
+RUN mvn -f /workspace/app/pom.xml clean package
 
 #### 2nd Stage ####
 

@@ -3,6 +3,7 @@ version: "3.9"
 ### API Spring Boot ###
 services:
   calculator_api:
+    container_name: CalculatorApp
     build:
       dockerfile: Dockerfile
       context: .
